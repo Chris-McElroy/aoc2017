@@ -7,5 +7,9 @@
 
 import Foundation
 
-print("Hello, World!")
+// change to the project's file path before running
+let projectFolder = "OneDrive/code/aoc2017"
+
+day1()
+
 
