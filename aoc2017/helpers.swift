@@ -24,15 +24,15 @@ public func inputLines(_ num: Int) -> [String] {
 	}
 }
 
-public func inputInts(_ num: Int) -> [Int] {
-	let input = inputLines(num)
-	return input.map { Int($0) ?? 0 }
-}
-
-public func inputWords(_ num: Int) -> [[String]] {
-	let input = inputLines(num)
-	return input.map { $0.fullSplit(separator: " ") }
-}
+//public func inputInts(_ num: Int) -> [Int] {
+//	let input = inputLines(num)
+//	return input.map { Int($0) ?? 0 }
+//}
+//
+//public func inputWords(_ num: Int) -> [[String]] {
+//	let input = inputLines(num)
+//	return input.map { $0.fullSplit(separator: " ") }
+//}
 
 // shortcuts //
 

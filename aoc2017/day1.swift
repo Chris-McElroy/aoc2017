@@ -8,11 +8,12 @@
 import Foundation
 
 func day1() {
-	let input = inputLines(1)[0]
+	let string = input[0]
 	
 	var sum = 0
-	for (i,c) in input.enumerated() {
-		if c == input[(i + input.count/2) % input.count] { sum += Int(String(c))! }
+	for (i,c) in string.enumerated() where c == string[(i + string.count/2) % string.count] {
+		sum += Int(String(c))!
 	}
+	
 	print(sum)
 }

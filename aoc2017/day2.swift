@@ -8,7 +8,18 @@
 import Foundation
 
 func day2() {
-	let input = inputLines(2)
+	var sum = 0
+	for line in input {
+		var ints: [Int] = []
+		for word in line.split(separator: "\t") {
+			ints.append(Int(word)!)
+		}
+		for i in ints {
+			for j in ints where i > j && i % j == 0 {
+				sum += i/j
+			}
+		}
+	}
 	
-	print(input)
+	print(sum)
 }
