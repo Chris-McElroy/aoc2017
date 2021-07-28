@@ -10,7 +10,7 @@ import Foundation
 // change to the project's file path before running
 let projectFolder = "OneDrive/code/aoc2017"
 
-let day = 4
+let day = 5
 
 let input = inputLines(day)
 
