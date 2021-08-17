@@ -24,15 +24,15 @@ public func inputLines(_ num: Int) -> [String] {
 	}
 }
 
-//public func inputInts(_ num: Int) -> [Int] {
-//	let input = inputLines(num)
-//	return input.map { Int($0) ?? 0 }
-//}
-//
-//public func inputWords(_ num: Int) -> [[String]] {
-//	let input = inputLines(num)
-//	return input.map { $0.fullSplit(separator: " ") }
-//}
+public func inputInts(_ num: Int) -> [Int] {
+	let input = inputLines(num)
+	return input.map { Int($0) ?? 0 }
+}
+
+public func inputWords(_ num: Int) -> [[String]] {
+	let input = inputLines(num)
+	return input.map { $0.fullSplit(separator: " ") }
+}
 
 // shortcuts //
 
@@ -135,7 +135,7 @@ public extension Array {
 	}
 	
 	func slice(from start: Int, to end: Int) -> Self.SubSequence {
-		return self.first(start+end).dropFirst(start)
+		return self.first(end).dropFirst(start)
 	}
 	
 	func slice(from start: Int, through end: Int, by k: Int) -> Self {
@@ -479,4 +479,29 @@ func bfs<T>(startingWith start: Set<T>, searchFor solution: ((T, Int, Set<T>) ->
 		
 		current = next
 	}
+}
+
+// from https://stackoverflow.com/questions/28349864/algorithm-for-lcm-of-doubles-in-swift
+// GCD of two numbers:
+func gcd(_ a: Int, _ b: Int) -> Int {
+	var (a, b) = (a, b)
+	while b != 0 {
+		(a, b) = (b, a % b)
+	}
+	return abs(a)
+}
+
+// GCD of a vector of numbers:
+func gcd(_ vector: [Int]) -> Int {
+	return vector.reduce(0, gcd)
+}
+
+// LCM of two numbers:
+func lcm(_ a: Int, _ b: Int) -> Int {
+	return (a / gcd(a, b)) * b
+}
+
+// LCM of a vector of numbers:
+func lcm(_ vector: [Int]) -> Int {
+	return vector.reduce(1, lcm)
 }

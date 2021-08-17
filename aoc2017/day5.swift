@@ -8,5 +8,16 @@
 import Foundation
 
 func day5() {
-	print(input)
+	let max = input.count
+	var ins = input.map { Int($0)!}
+	
+	var i = 0
+	var s = 0
+	while i.isin(0..<max) {
+		let temp = ins[i]
+		ins[i] += ins[i] >= 3 ? -1 : 1
+		i += temp
+		s += 1
+	}
+	print(s)
 }
