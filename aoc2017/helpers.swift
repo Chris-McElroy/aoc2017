@@ -463,7 +463,7 @@ func bfs<T>(startingWith start: Set<T>, searchFor solution: ((T, Int, Set<T>) ->
 	var found: Set<T> = []
 	var current: Set<T> = start
 	
-	w: while shouldContinue(steps, found) {
+	w: while shouldContinue(steps, found) && !current.isEmpty {
 		steps += 1
 		var next: Set<T> = []
 		
