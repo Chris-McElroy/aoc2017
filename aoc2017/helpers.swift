@@ -505,3 +505,66 @@ func lcm(_ a: Int, _ b: Int) -> Int {
 func lcm(_ vector: [Int]) -> Int {
 	return vector.reduce(1, lcm)
 }
+
+extension Int {
+	var isPrime: Bool {
+		// from https://stackoverflow.com/questions/31105664/check-if-a-number-is-prime
+		guard self >= 2     else { return false }
+		guard self != 2     else { return true  }
+		guard self % 2 != 0 else { return false }
+		return !stride(from: 3, through: Int(sqrt(Double(self))), by: 2).contains { self % $0 == 0 }
+	}
+}
+
+enum Operation {
+	case set, inc, dec, add, sub, mod, mult, div
+	case jump, jnz, jez, jgz, jlz
+}
+
+func intOrReg(val: String, reg: [String: Int]) -> Int {
+	if let n = Int(val) { return n }
+	return reg[val] ?? 0
+}
+
+func compute(with language: [String: Operation], program: [[String]] = wordLines, reg: inout [String: Int], line i: inout Int) {
+	
+	let line = program[i]
+	let v1 = intOrReg(val: line[1], reg: reg)
+	let v2 = line.count < 3 ? 0 : intOrReg(val: line[2], reg: reg)
+	
+	switch language[line[0]] {
+	case .set:
+		reg[line[1]] = v2
+	case .inc:
+		reg[line[1], default: 0] += 1
+	case .dec:
+		reg[line[1], default: 0] -= 1
+	case .add:
+		reg[line[1], default: 0] += v2
+	case .sub:
+		reg[line[1], default: 0] -= v2
+	case .mod:
+		reg[line[1], default: 0] %= v2
+	case .mult:
+		reg[line[1], default: 0] *= v2
+	case .div:
+		reg[line[1], default: 0] /= v2
+		
+	case .jump:
+		i += v1 - 1
+	case .jnz:
+		if v1 != 0 { i += v2 - 1 }
+	case .jez:
+		if v1 == 0 { i += v2 - 1 }
+	case .jgz:
+		if v1 > 0 { i += v2 - 1 }
+	case .jlz:
+		if v1 < 0 { i += v2 - 1 }
+		
+	case .none:
+		break
+	}
+	
+	i += 1
+	
+}

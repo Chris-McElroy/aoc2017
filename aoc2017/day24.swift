@@ -8,7 +8,5 @@
 import Foundation
 
 func day24() {
-	let input = inputLines(24)
-	
 	print(input)
 }

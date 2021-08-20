@@ -8,10 +8,10 @@
 import Foundation
 
 func day18() {
-	let input = inputWords(18)
 	var sent: [[Int]] = [[],[]]
 	var line = [0,0]
 	var reg: [[String: Int]] = [[:],[:]]
+	let language: [String: Operation] = ["set": .set, "add": .add, "mul": .mult, "mod": .mod, "jgz": .jgz]
 	
 	reg[0]["p"] = 0
 	reg[1]["p"] = 1
@@ -28,38 +28,21 @@ func day18() {
 		n ^= 1
 		
 		while line[n] < input.count {
-			let instr = input[line[n]]
-			var v1 = reg[n][instr[1]] ?? 0
-			if let v = Int(instr[1]) { v1 = v }
-			
-			var v2 = instr.count == 3 ? reg[n][instr[2]] ?? 0 : 0
-			if let v = instr.count == 3 ? Int(instr[2]) : nil { v2 = v }
-			
-			switch instr[0] {
-			case "snd":
+			if wordLines[line[n]][0] == "snd" {
+				let v1 = intOrReg(val: wordLines[line[n]][1], reg: reg[n])
 				sent[n^1].insert(v1, at: 0)
 				if n == 1 { co += 1 }
-			case "set":
-				reg[n][instr[1], default: 0] = v2
-			case "add":
-				reg[n][instr[1], default: 0] += v2
-			case "mul":
-				reg[n][instr[1], default: 0] *= v2
-			case "mod":
-				reg[n][instr[1], default: 0] %= v2
-			case "rcv":
+				line[n] += 1
+			} else if wordLines[line[n]][0] == "rcv" {
 				if let new = sent[n].popLast() {
-					reg[n][instr[1], default: 0] = new
+					reg[n][wordLines[line[n]][1]] = new
+					line[n] += 1
 				} else {
 					return
 				}
-			case "jgz":
-				if v1 > 0 {
-					line[n] += v2 - 1
-				}
-			default: break
+			} else {
+				compute(with: language, reg: &reg[n], line: &line[n])
 			}
-			line[n] += 1
 		}
 	}
 	
